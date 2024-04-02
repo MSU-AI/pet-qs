@@ -33,8 +33,8 @@ const TAB_DATA = [
     id: "certifications",
     content: (
       <ul className="list-disc pl-2">
-        <li>AWS Cloud Practitioner</li>
-        <li>Google Professional Cloud Developer</li>
+        <li>AI Club Projects</li>
+        <li>Led by Mohammad A</li>
       </ul>
     ),
   },
@@ -65,21 +65,21 @@ const AboutSection = () => {
               active={tab === "skills"}
             >
               {" "}
-              Skills{" "}
+              Tech{" "}
             </TabButton>
             <TabButton
               selectTab={() => handleTabChange("education")}
               active={tab === "education"}
             >
               {" "}
-              Education{" "}
+              Location of Development{" "}
             </TabButton>
             <TabButton
               selectTab={() => handleTabChange("certifications")}
               active={tab === "certifications"}
             >
               {" "}
-              Certifications{" "}
+              Project Host{" "}
             </TabButton>
           </div>
           <div className="mt-8">

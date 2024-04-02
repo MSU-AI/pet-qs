@@ -22,14 +22,14 @@ const HeroSection = () => {
             <br></br>
             <TypeAnimation
               sequence={[
-                "AI Club @ Michigan State Project",
+                "AI Club Project",
                 9000,
-                "Led by Karoline Beliz",
-                9000,
-                "Welcome to All Users",
-                9000,
-                "Audio, Video, And Pose Detection",
-                9000,
+                "Audio",
+                1000,
+                "Video",
+                1000,
+                "Pose Detection",
+                1000,
               ]}
               wrapper="span"
               speed={50}

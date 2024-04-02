@@ -11,22 +11,22 @@ const AnimatedNumbers = dynamic(
 
 const achievementsList = [
   {
-    metric: "Projects",
-    value: "100",
+    metric: "Compatible Dog Breeds",
+    value: "70",
     postfix: "+",
   },
   {
-    prefix: "~",
-    metric: "Users",
-    value: "100,000",
+    // prefix: "~",
+    metric: "Images Trained - Kaggle Model",
+    value: "1000",
   },
   {
-    metric: "Awards",
+    metric: "Developers",
     value: "7",
   },
   {
-    metric: "Years",
-    value: "5",
+    metric: "Year Long",
+    value: "1",
   },
 ];
 
