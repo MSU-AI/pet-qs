@@ -22,36 +22,36 @@ const HeroSection = () => {
             <br></br>
             <TypeAnimation
               sequence={[
-                "Judy",
-                3000,
-                "Web Developer",
-                1000,
-                "Mobile Developer",
-                1000,
-                "UI/UX Designer",
-                1000,
+                "AI Club @ Michigan State Project",
+                9000,
+                "Led by Karoline Beliz",
+                9000,
+                "Welcome to All Users",
+                9000,
+                "Audio, Video, And Pose Detection",
+                9000,
               ]}
               wrapper="span"
               speed={50}
               repeat={Infinity}
             />
           </h1>
-          <p className="text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl">
-            WE LOVE OUR SLAY PROJECT INCREDIBLE SO FIRE
+          <p className="text-[#ADB7BE] text-base sm:text-lg mb-8 lg:text-4xl">
+          Empower first-time pet owners to understand and respond to their pets' emotions with just a photo or video, ensuring a safer and happier coexistence.
           </p>
           <div>
             <Link
               href="/#contact"
-              className="px-6 inline-block py-3 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-200 text-white"
+              className="px-20 inline-block py-10 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-200 text-white lg:text-3xl"
             >
-              Hire Me
+              Take Photo
             </Link>
             <Link
               href="/"
-              className="px-1 inline-block py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3"
+              className="px-1 inline-block py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3 lg:text-3xl"
             >
-              <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-5 py-2">
-                Download CV
+              <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-20 py-10">
+                Record Video
               </span>
             </Link>
           </div>
@@ -64,11 +64,11 @@ const HeroSection = () => {
         >
           <div className="rounded-full bg-[#181818] w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] relative">
             <Image
-              src="/images/hero-image.png"
+              src="/images/projects/aclogo3.png"
               alt="hero image"
               className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              width={300}
-              height={300}
+              width={250}
+              height={250}
             />
           </div>
         </motion.div>
