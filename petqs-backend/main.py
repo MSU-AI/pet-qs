@@ -3,7 +3,6 @@ from flask import Flask,json,jsonify,request
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
 from datetime import datetime
-from PIL import Image
 import deeplabcut
 import shutil
 import uuid  
@@ -20,9 +19,9 @@ import joblib
 import matplotlib.pyplot as plt
 
 #Folder to upload files
-uploadPath = r'/home/emmanuelze/Documents/Projects/pet_qs/pet_qs_git/pet-qs/petqs-backend/Images'
-filePath = r'/home/emmanuelze/Documents/Projects/pet_qs/pet_qs_git/pet-qs/petqs-backend/'
-classifierModel = r'/home/emmanuelze/Documents/Projects/pet_qs/pet_qs_git/pet-qs/petqs-backend/models/mlp_model_3.pkl'
+uploadPath = r'./Images'
+filePath = r'./'
+classifierModel = r'./models/mlp_model_3.pkl'
 
 #Instace of flask app
 app = Flask(__name__)
