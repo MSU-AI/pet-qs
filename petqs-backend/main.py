@@ -9,9 +9,20 @@ import shutil
 import uuid  
 import os
 
+#ML imports
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
+import pandas as pd
+import joblib
+import matplotlib.pyplot as plt
+
 #Folder to upload files
-uploadPath = r'/home/emmanuelze/Documents/Projects/pet_qs/pet_qs_backend_local/Images'
-filePath = r'/home/emmanuelze/Documents/Projects/pet_qs/pet_qs_backend_local'
+uploadPath = r'/home/emmanuelze/Documents/Projects/pet_qs/pet_qs_git/pet-qs/petqs-backend/Images'
+filePath = r'/home/emmanuelze/Documents/Projects/pet_qs/pet_qs_git/pet-qs/petqs-backend/'
+classifierModel = r'/home/emmanuelze/Documents/Projects/pet_qs/pet_qs_git/pet-qs/petqs-backend/models/mlp_model_3.pkl'
 
 #Instace of flask app
 app = Flask(__name__)
@@ -84,6 +95,64 @@ def obtainPose(videoName,folder):
     deeplabcut.analyze_videos(config_path, videoPath)
     deeplabcut.analyzeskeleton(config_path, videoPath, videotype=videoType, save_as_csv=True)
 
+#Analyze the pose data
+def analyzePose(folder):
+    #Search for CSV file in subfolder
+    content = os.listdir(os.path.join(uploadPath,folder))
+    dataFile =''
+    for files in content:
+        fileType = files.split(".")[1]
+        if(fileType=='csv'):
+            dataFile = files
+    
+    #Treat data
+    data = pd.read_csv(os.path.join(uploadPath,folder,dataFile))
+    data = data.to_numpy()
+    data = data[2:,:]
+    X = data[:,1:]
+
+    #Initialize label encoder
+    label_encoder = LabelEncoder()
+    label_encoder.fit(['happy','sad','angry'])
+
+    #Load the model
+    clf_loaded = joblib.load(classifierModel)
+
+    #Pass input to model, obtain output
+    y_pred = clf_loaded.predict(X)
+    y_pred_text = label_encoder.inverse_transform(y_pred)
+
+    #Iterate over all results and see which is the top choide
+    array = y_pred_text #Results
+    happyCounter = 0
+    sadCounter = 0
+    angryCounter = 0
+
+    for elements in array:
+        if(elements=='happy'):
+            happyCounter+=1
+
+        if(elements=='sad'):
+            sadCounter+=1
+
+        if(elements=='angry'):
+            angryCounter+=1
+
+    topGuess = 'bar'
+    test1 = max(happyCounter,sadCounter)
+    test2 = max(angryCounter,test1)
+
+
+    if(happyCounter==test2):
+        topGuess = 'happy'
+
+    elif (sadCounter==test2):
+        topGuess = 'sad'
+
+    elif (angryCounter==test2):
+        topGuess = 'angry'
+    
+    return topGuess
 
 #Return all HTTP errors as JSON
 @app.errorhandler(HTTPException)
@@ -131,7 +200,8 @@ def postRoute():
     rec.save(os.path.join(uploadPath,folder,vidName))
 
     #Function calls to the model
-    poseCSV = obtainPose(vidName,folder)
+    poseCSV = obtainPose(vidName,folder) 
+    poseNN = analyzePose(folder)
     #Pass pose data to NN, obtain mood result
 
 
@@ -141,6 +211,6 @@ def postRoute():
     
     #Prepare response
     data = {
-        "message": "received"
+        "message": poseNN
     }
     return jsonify(data), {"Content-Type": "application/json"}
