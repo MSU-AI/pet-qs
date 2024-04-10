@@ -41,19 +41,12 @@ const HeroSection = () => {
           </p>
           <div>
             <Link
-              href="/#contact"
+              href="/upload"
               className="px-20 inline-block py-10 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-200 text-white lg:text-3xl"
             >
-              Take Photo
+              Upload
             </Link>
-            <Link
-              href="/"
-              className="px-1 inline-block py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3 lg:text-3xl"
-            >
-              <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-20 py-10">
-                Record Video
-              </span>
-            </Link>
+
           </div>
         </motion.div>
         <motion.div
