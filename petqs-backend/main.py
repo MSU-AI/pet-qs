@@ -88,7 +88,10 @@ def obtainPose(videoName,folder):
                       ['front_right_thai','front_right_paw'],['tail_base','back_left_thai'],
                       ['back_left_thai','back_left_paw'],['tail_base','back_right_thai'],
                       ['back_right_thai','back_right_paw']],
-            'skeleton_color': 'white'}
+            'skeleton_color': 'white',
+            'pcutoff': 0.4,
+            'dotsize': 8,
+            'alphavalue': 0.5}
     deeplabcut.auxiliaryfunctions.edit_config(config_path, edits)
 
     #Analyze the video, export the skeleton data
@@ -211,20 +214,23 @@ def postRoute():
     content = os.listdir(os.path.join(uploadPath,folder))
     vidFile =''
     for files in content:
+        print(files)
         try:
             fileType = files.split(".")[1]
             fileName = files.split(".")[0]
-            if((fileType==vidType) and ('DLC' in fileName)):
+            
+            #DLC always returns an mp4 file
+            if((fileType=='mp4') and ('DLC' in fileName)): 
                 vidFile = files
         except:
             continue
-
+  
     #Delete the subfolder when done
     redundantFolder = folder+'-pet-qs-'+datetime.today().strftime('%Y-%m-%d')
     shutil.rmtree(os.path.join(filePath,redundantFolder))
     
     #Prepare response
-    respName = vidName.split(".")[0].strip()+'_labelled.'+vidType
+    respName = vidName.split(".")[0].strip()+'_labelled.mp4'
     destPath = os.path.join(uploadPath,folder,vidFile)
     response = send_file(destPath,download_name=respName,as_attachment=True)
     response.headers['emotion'] = poseNN
