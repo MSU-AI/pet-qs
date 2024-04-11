@@ -1,5 +1,5 @@
 #Module imports
-from flask import Flask,json,jsonify,request
+from flask import Flask,json,jsonify,request,send_file
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -19,9 +19,10 @@ import joblib
 import matplotlib.pyplot as plt
 
 #Folder to upload files
-uploadPath = r'./Images'
-filePath = r'./'
-classifierModel = r'./models/mlp_model_3.pkl'
+currentDir = os.getcwd()
+uploadPath = os.path.join(currentDir, 'Images')
+filePath = currentDir
+classifierModel = os.path.join(currentDir,'models','mlp_model_3.pkl')
 
 #Instace of flask app
 app = Flask(__name__)
@@ -73,7 +74,6 @@ def obtainPose(videoName,folder):
         model=supermodel_name,
         analyzevideo=True,
         createlabeledvideo=True,
-        copy_videos=True, #must leave copy_videos=True
     )
 
     #Edit the project config.yaml file
@@ -87,12 +87,16 @@ def obtainPose(videoName,folder):
                       ['front_left_thai','front_left_paw'],['neck_base','front_right_thai'],
                       ['front_right_thai','front_right_paw'],['tail_base','back_left_thai'],
                       ['back_left_thai','back_left_paw'],['tail_base','back_right_thai'],
-                      ['back_right_thai','back_right_paw']]}
+                      ['back_right_thai','back_right_paw']],
+            'skeleton_color': 'white'}
     deeplabcut.auxiliaryfunctions.edit_config(config_path, edits)
 
     #Analyze the video, export the skeleton data
     deeplabcut.analyze_videos(config_path, videoPath)
     deeplabcut.analyzeskeleton(config_path, videoPath, videotype=videoType, save_as_csv=True)
+
+    #Save the labeled skeleton
+    deeplabcut.create_labeled_video(config_path,videoPath, videotype=videoType, draw_skeleton = True)
 
 #Analyze the pose data
 def analyzePose(folder):
@@ -195,21 +199,34 @@ def postRoute():
     #Save the image
     folder = str(uuid.uuid4())
     vidName = secure_filename(rec.filename)
+    vidType = vidName.split(".")[1].strip()
     os.mkdir(os.path.join(uploadPath,folder))
     rec.save(os.path.join(uploadPath,folder,vidName))
 
     #Function calls to the model
     poseCSV = obtainPose(vidName,folder) 
     poseNN = analyzePose(folder)
-    #Pass pose data to NN, obtain mood result
-
+    
+    #Search for mp4 file in subfolder
+    content = os.listdir(os.path.join(uploadPath,folder))
+    vidFile =''
+    for files in content:
+        try:
+            fileType = files.split(".")[1]
+            fileName = files.split(".")[0]
+            if((fileType==vidType) and ('DLC' in fileName)):
+                vidFile = files
+        except:
+            continue
 
     #Delete the subfolder when done
     redundantFolder = folder+'-pet-qs-'+datetime.today().strftime('%Y-%m-%d')
     shutil.rmtree(os.path.join(filePath,redundantFolder))
     
     #Prepare response
-    data = {
-        "message": poseNN
-    }
-    return jsonify(data), {"Content-Type": "application/json"}
+    respName = vidName.split(".")[0].strip()+'_labelled.'+vidType
+    destPath = os.path.join(uploadPath,folder,vidFile)
+    response = send_file(destPath,download_name=respName,as_attachment=True)
+    response.headers['emotion'] = poseNN
+
+    return response
