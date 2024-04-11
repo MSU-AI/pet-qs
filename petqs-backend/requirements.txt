@@ -112,13 +112,6 @@ napari-deeplabcut==0.2.1.6
 napari-plugin-engine==0.2.0
 napari-svg==0.1.10
 natsort==8.4.0
-nbdev
-nb_conda
-nb_conda_kernels==2.3.1
-nbclassic==1.0.0
-nbclient==0.10.0
-nbconvert==7.16.3
-nbformat==5.10.4
 ndindex==1.8
 nest_asyncio==1.6.0
 networkx==3.2.1
