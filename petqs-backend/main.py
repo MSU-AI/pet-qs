@@ -3,20 +3,15 @@ from flask import Flask,json,jsonify,request,send_file
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
 from datetime import datetime
-import deeplabcut
 import shutil
 import uuid  
 import os
 
 #ML imports
-from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import LabelEncoder
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import f1_score
 import pandas as pd
+import deeplabcut
 import joblib
-import matplotlib.pyplot as plt
 
 #Folder to upload files
 currentDir = os.getcwd()
