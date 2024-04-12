@@ -190,12 +190,19 @@ def postRoute():
         data = {"Error": "No file uploaded"}
         return jsonify(data), {"Content-Type": "application/json"}
     
-    #Check file type
-    
-    #Save the image
+    #Initialization
     folder = str(uuid.uuid4())
     vidName = secure_filename(rec.filename)
     vidType = vidName.split(".")[1].strip()
+
+    #Check file type
+    accepted = ['avi','webm','flv','vob','ogg','ogv','gif','mov','qt',
+                'wmv','yuv','mp4','m4p','m4v','mpg','mpeg','m2v']
+    if vidType not in accepted:
+        data = {"Error": "File type is not video"}
+        return jsonify(data), {"Content-Type": "application/json"}
+    
+    #Save the image
     os.mkdir(os.path.join(uploadPath,folder))
     rec.save(os.path.join(uploadPath,folder,vidName))
 
