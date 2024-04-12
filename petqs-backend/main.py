@@ -72,8 +72,8 @@ def obtainPose(videoName,folder):
         [videoPath],
         videotype=videoType,
         model=supermodel_name,
-        analyzevideo=True,
-        createlabeledvideo=True,
+        analyzevideo=False,
+        createlabeledvideo=False,
     )
 
     #Edit the project config.yaml file
@@ -97,8 +97,6 @@ def obtainPose(videoName,folder):
     #Analyze the video, export the skeleton data
     deeplabcut.analyze_videos(config_path, videoPath)
     deeplabcut.analyzeskeleton(config_path, videoPath, videotype=videoType, save_as_csv=True)
-
-    #Save the labeled skeleton
     deeplabcut.create_labeled_video(config_path,videoPath, videotype=videoType, draw_skeleton = True)
 
 #Analyze the pose data
@@ -214,7 +212,6 @@ def postRoute():
     content = os.listdir(os.path.join(uploadPath,folder))
     vidFile =''
     for files in content:
-        print(files)
         try:
             fileType = files.split(".")[1]
             fileName = files.split(".")[0]
