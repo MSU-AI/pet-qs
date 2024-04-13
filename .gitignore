@@ -1,3 +1,4 @@
 *.pyc
 
 venv/
+petqs-backend/requests.log
