@@ -10,7 +10,8 @@ export async function uploadVideoToServer(videoFile) {
 
   console.log('form data:', response.formData());
   console.log('response', response);
-  return response;
+  console.log('response.body', response.body);
+  return response.body;
 } catch (error) {
   console.error('Error uploading video:', error);
 } 
