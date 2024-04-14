@@ -1,5 +1,6 @@
 #Module imports
 from flask import Flask,json,jsonify,request,send_file
+from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -21,6 +22,7 @@ classifierModel = os.path.join(currentDir,'models','mlp_model_3.pkl')
 
 #Instace of flask app
 app = Flask(__name__)
+CORS(app)
 
 #Request logging function
 def logger(req):
@@ -231,7 +233,9 @@ def postRoute():
     #Prepare response
     respName = vidName.split(".")[0].strip()+'_labelled.mp4'
     destPath = os.path.join(uploadPath,folder,vidFile)
-    response = send_file(destPath,download_name=respName,as_attachment=True)
+    response = send_file(destPath,download_name=respName,as_attachment=False)
     response.headers['emotion'] = poseNN
+
+    print(response)
 
     return response
