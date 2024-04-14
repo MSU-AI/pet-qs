@@ -74,10 +74,10 @@ const Upload = () => {
               </>
             )}
           </div>
-        <div className="flex gap-8">
+        <div className="flex flex-col flex gap-8 justify-center items-center">
           {confirmed && (
             <div className="flex items-center justify-center">
-              <h1 className="text-white font-bold">Confirmed!</h1>
+              <h1 className="text-white font-bold">Confirmed! Wait a bit for a response.</h1>
             </div>
           )}
           {!confirmed && (
