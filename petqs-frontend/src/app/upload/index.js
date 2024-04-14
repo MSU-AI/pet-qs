@@ -10,6 +10,7 @@ export async function uploadVideoToServer(videoFile) {
 
     const videoBlob = await response.blob();
     const videoBlobUrl = URL.createObjectURL(videoBlob);
+    console.log('Video uploaded:', videoBlobUrl);
     return videoBlobUrl;
   } catch (error) {
     console.error('Error uploading video:', error);
