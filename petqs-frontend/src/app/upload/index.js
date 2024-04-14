@@ -9,7 +9,7 @@ export async function uploadVideoToServer(videoFile) {
    });
 
    // Check the response headers for the 'Emotion' value
-   const emotion = response.headers.get('Emotion');
+   const emotion = response.headers.get('emotion');
    console.log(`Emotion: ${emotion}`);
    console.log(`Response status: ${response.status}`);
    console.log(`Response headers: ${JSON.stringify(response.headers)}`);
