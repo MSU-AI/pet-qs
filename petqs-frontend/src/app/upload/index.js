@@ -9,13 +9,6 @@ export async function uploadVideoToServer(videoFile) {
       mode: 'no-cors',
     });
 
-    if (!response.ok) {
-      console.log('Error code:', response.status);
-      const errorText = await response.text();
-      console.error('Server response:', errorText);
-      throw new Error(`Network response was not ok: ${errorText}`);
-    }
-
     const videoBlob = await response.blob();
     const videoBlobUrl = URL.createObjectURL(videoBlob);
     return videoBlobUrl;
