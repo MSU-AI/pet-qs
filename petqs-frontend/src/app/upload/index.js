@@ -9,6 +9,7 @@ export async function uploadVideoToServer(videoFile) {
   });
 
   if (!response.ok) {
+    console.log('error code: ', response.code());
     const errorText = await response.text();
     console.error('Server response:', errorText);
     console.error(`Network response was not ok: ${errorText}`);
