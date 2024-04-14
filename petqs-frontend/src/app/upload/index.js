@@ -15,8 +15,7 @@ export async function uploadVideoToServer(videoFile) {
     console.error(`Network response was not ok: ${errorText}`);
   }
 
-  const data = await response.json();
-  console.log('Server response:', data);
+  return response;
 } catch (error) {
   console.error('Error uploading video:', error);
 } 

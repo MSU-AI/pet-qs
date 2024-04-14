@@ -28,7 +28,7 @@ const Upload = () => {
   const handleConfirm = () => {
     setConfirmed(true);
     if (videoFile) {
-      uploadVideoToServer(videoFile);
+      setVideoURL(uploadVideoToServer(videoFile));
     }
   };
 
