@@ -20,7 +20,8 @@ loglevel = "debug"
 workers = 2
 
 # The socket to bind:
-bind = "127.0.0.1:4455"
+bind = "10.8.0.2:4455"  # If running on Owen Machine
+#bind = "127.0.0.1:445"  # If running locally/on production
 #bind = "unix:/var/www/html/cardiB/cardiB.sock"
 
 # Write access and error info to /var/log

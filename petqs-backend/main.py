@@ -1,5 +1,5 @@
 #Module imports
-from flask import Flask,json,jsonify,request,send_file
+from flask import Flask,json,jsonify,request,send_file, Response
 from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
 from werkzeug.utils import secure_filename
@@ -233,9 +233,11 @@ def postRoute():
     #Prepare response
     respName = vidName.split(".")[0].strip()+'_labelled.mp4'
     destPath = os.path.join(uploadPath,folder,vidFile)
-    response = send_file(destPath,download_name=respName,as_attachment=False)
+    #response = send_file(destPath,download_name=respName,as_attachment=False)
+    
+    response = Response(response=str(poseNN))
     response.headers['emotion'] = poseNN
 
-    print(response)
+    print(response.headers)
 
     return response
