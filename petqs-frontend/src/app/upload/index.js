@@ -8,6 +8,8 @@ export async function uploadVideoToServer(videoFile) {
     mode: 'no-cors',
   });
 
+  console.log('form data:', response.formData());
+  console.log('response', response);
   return response;
 } catch (error) {
   console.error('Error uploading video:', error);
