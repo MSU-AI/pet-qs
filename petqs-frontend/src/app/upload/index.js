@@ -9,11 +9,10 @@ export async function uploadVideoToServer(videoFile) {
    });
 
    // Check the response headers for the 'Emotion' value
-   const emotion = response.body
+   const emotion = response.text()
    console.log(`Emotion: ${emotion}`);
    console.log(`Response status: ${response.status}`);
-   console.log(`Response body: ${response.body}`);
-   console.log(`Response body text: ${response.body.text()}`);
+   console.log(`Response text: ${response.text()}`);
 
    if (!response.ok) {
      throw new Error(`HTTP error ${response.status}`);
