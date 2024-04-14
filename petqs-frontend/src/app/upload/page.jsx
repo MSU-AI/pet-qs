@@ -74,6 +74,7 @@ const Upload = () => {
               </>
             )}
           </div>
+        <div className="flex gap-8">
           {confirmed && (
             <div className="flex items-center justify-center">
               <h1 className="text-white font-bold">Confirmed!</h1>
@@ -84,9 +85,10 @@ const Upload = () => {
           )}
           {emotion && (
             <div className="flex items-center justify-center">
-              <h1 className="text-white font-bold">{emotion}</h1>
+              <h1 className="text-6xl text-white font-bold">{emotion}</h1>
             </div>
           )}
+      </div>
         </div>
       </div>
     </div>
