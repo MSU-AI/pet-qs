@@ -25,12 +25,13 @@ const Upload = () => {
     }
   };
 
-  const handleConfirm = () => {
-    setConfirmed(true);
-    if (videoFile) {
-      setVideoURL(uploadVideoToServer(videoFile));
-    }
-  };
+  const handleConfirm = async () => {
+  setConfirmed(true);
+  if (videoFile) {
+    const videoUrl = await uploadVideoToServer(videoFile);
+    setVideoURL(videoUrl);
+  }
+}; 
 
   return (
     <div className="bg-[#181818] h-screen">
