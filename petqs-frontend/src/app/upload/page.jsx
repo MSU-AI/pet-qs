@@ -11,6 +11,7 @@ const Upload = () => {
   const [imageFile, setImageFile] = useState(null);
   const [imageURL, setImageURL] = useState(null);
   const [confirmed, setConfirmed] = useState(false);
+  const [emotion, setEmotion] = useState(false);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -28,8 +29,7 @@ const Upload = () => {
   const handleConfirm = async () => {
   setConfirmed(true);
   if (videoFile) {
-    const videoUrl = await uploadVideoToServer(videoFile);
-    setVideoURL(videoUrl);
+    setEmotion(await uploadVideoToServer(videoFile));
   }
 }; 
 
@@ -74,14 +74,21 @@ const Upload = () => {
               </>
             )}
           </div>
+        <div className="flex flex-col flex gap-8 justify-center items-center">
           {confirmed && (
             <div className="flex items-center justify-center">
-              <h1 className="text-white font-bold">Confirmed!</h1>
+              <h1 className="text-white font-bold">Confirmed! Wait a bit for a response.</h1>
             </div>
           )}
           {!confirmed && (
             <input type="file" onChange={handleFileUpload} className={`mb-4 ${videoURL || imageURL ? 'hidden' : ''} rounded text-white`} />
           )}
+          {emotion && (
+            <div className="flex items-center justify-center">
+              <h1 className="text-6xl text-white font-bold">{emotion}</h1>
+            </div>
+          )}
+      </div>
         </div>
       </div>
     </div>
