@@ -2,6 +2,8 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { uploadVideoToServer } from './index';
+
 const Upload = () => {
   const router = useRouter();
   const [videoFile, setVideoFile] = useState(null);
@@ -25,6 +27,9 @@ const Upload = () => {
 
   const handleConfirm = () => {
     setConfirmed(true);
+    if (videoFile) {
+      uploadVideoToServer(videoFile);
+    }
   };
 
   return (
