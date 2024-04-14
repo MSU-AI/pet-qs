@@ -5,6 +5,7 @@ export async function uploadVideoToServer(videoFile) {
   const response = await fetch('https://pets.onet.cool/postImage', {
     method: 'POST',
     body: formData,
+    mode: 'no-cors',
   });
 
   if (!response.ok) {
