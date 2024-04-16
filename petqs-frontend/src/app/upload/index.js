@@ -3,7 +3,7 @@ export async function uploadVideoToServer(videoFile) {
    const formData = new FormData();
    formData.append('image', videoFile);
 
-   const response = await fetch('https://pets.onet.cool/postImage', {
+   const response = await fetch('https://pets.msuaiclub.com/postImage', {
      method: 'POST',
      body: formData
    });
